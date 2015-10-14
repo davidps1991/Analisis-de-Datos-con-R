@@ -1,0 +1,162 @@
+---
+title: "Informe del Censo 2010- Provincia de Imbabura"
+author: "Cristian Pachacama"
+date: "Miercoles, 13 de Octubre , 2015"
+output: html_document
+---
+
+```{r,echo=FALSE,eval=TRUE,warning=FALSE}
+#MAPA DE ECUADOR
+library(maps)
+map("world", "Ecuador")
+#*****************************************************************
+#Lectura de Archivos
+library(foreign)
+library(DT)
+poblacion<-read.spss("SPSS_Imbabura_Poblacion.sav",to.data.frame=T)
+pob2<-read.spss("SPSS_Imbabura_Poblacion.sav")
+
+```
+
+## 1.- Introducción
+
+Para el presente informe utilizamos la información descargada de la pagina http://www.ecuadorencifras.gob.ec/base-de-datos-censo-2010/ , la base de datos correspondiente a la porvincia de Imbabura ` "SPSS_Imbabura_Poblacion.sav" ` , la que consta de información que nos hes de interés respecto de sus habitantes.
+Para este informe hemos considerado variables como la edad, el sexo, etnia, nivel educativo, estado civil, entre otras, que serán objeto de estudio. Asi mismo se buscará hallar relaciones entre dichas variables, que nos permitan estudiar de mejor manera su comportamiento.
+
+
+## 2.- Variables
+
+A continuacion detallamos algunas de sus caracteristicas, como son número de habitantes que respondieron en las respectivas opciones de cada pregunta
+
+### 2.1.- Variable "Sexo"
+
+```{r,echo=F,eval=TRUE}
+Sexo<-table(poblacion$P01)
+Sexo
+
+pie(Sexo,main="Sexo")
+barplot(Sexo)
+```
+
+### 2.3.- Variable "Edad"
+
+```{r,echo=FALSE,eval=TRUE}
+e1<-sum(poblacion[,"P03"]>=90)
+e2<-sum(poblacion[,"P03"]<90&poblacion[,"P03"]>=60)
+e3<-sum(poblacion[,"P03"]<60&poblacion[,"P03"]>=40)
+e4<-sum(poblacion[,"P03"]>=18&poblacion[,"P03"]<40)
+e5<-sum(poblacion[,"P03"]<18)
+E<-c(e1,e2,e3,e4,e5)
+names(E)<-c("Mayor 90","Entre 90 y 60","40 y 60","Entre 18 y 40","Menor18")
+
+E
+pie(E,main="Edad")
+barplot(E)
+
+```
+
+
+### 2.4.- "Vive en Areal Rural o Urbana"
+
+
+```{r,echo=FALSE,eval=TRUE}
+Area<-table(poblacion$URP)
+Area
+pie(Area,main="Area Rural o Urbana")
+barplot(Area)
+
+```
+
+
+### 2.5.- "Tiene seguro privado"
+
+```{r,echo=FALSE,eval=TRUE}
+Segurop<-table(poblacion$P07)
+Segurop
+pie(Segurop,main="Posee Seguro Privado")
+barplot(Segurop)
+
+```
+
+### 2.6.- "Padece una discapacidad Permanente"
+
+```{r,echo=FALSE,eval=TRUE}
+discapa<-table(poblacion$P08)
+discapa
+pie(discapa,main="Tiene una discapacidad Permanente")
+barplot(discapa)
+```
+
+### 2.7.- "Cual es su provincia de nacimiento"
+
+```{r,echo=FALSE,eval=TRUE}
+provincia_nace<-table(poblacion$P11P)
+provincia_nace
+pie(provincia_nace,main="Provincia de nacimiento")
+barplot(provincia_nace)
+
+```
+
+### 2.8.- "Como se identifica según su cultura y costumbres"
+
+```{r,echo=FALSE,eval=TRUE}
+Etnia<-table(poblacion$P16)
+Etnia
+pie(Etnia,main="Etnia")
+barplot(Etnia)
+```
+
+### 2.9.-"Sabe Leer y Escribir"
+
+```{r,echo=FALSE,eval=TRUE}
+leer<-table(poblacion$P19)
+leer
+pie(leer,main="Sabe leer y escribir")
+barplot(leer)
+```
+
+### 2.10.-"Nivel Educativo"
+
+```{r,echo=FALSE,eval=TRUE}
+Educacion<-table(poblacion$P23)
+names(Educacion)<-c("ninguno","alfabetiz.","Preescolar","Primaria","Secunda","Ed.Basic","Ed.Media","PostBachil","Superior","Posgrad","No Respond")
+Educacion
+pie(Educacion,main="Nivel de Educación")
+barplot(Educacion)
+```
+
+### 2.11.-"Estado Civil"
+
+```{r,echo=FALSE,eval=TRUE}
+Estado_civil<-table(poblacion$P34)
+Estado_civil
+pie(Estado_civil,main="Estado Civil")
+barplot(Estado_civil)
+```
+
+
+### 2.12.-"Actividad Económica"
+
+```{r,echo=FALSE,eval=TRUE}
+Actividad<-table(poblacion$TIPOACT)
+Actividad
+pie(Actividad,main="Actividad Económica")
+barplot(Actividad)
+```
+
+
+### 2.13.-"Relación con el Jefe de Hogar"
+
+```{r,echo=FALSE,eval=TRUE}
+hogar<-table(poblacion$P02)
+hogar
+pie(hogar,main="Parentezco con el jefe de Hogar")
+barplot(hogar)
+
+```
+
+
+
+
+
+
